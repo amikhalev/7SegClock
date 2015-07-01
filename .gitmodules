@@ -1,3 +1,3 @@
 [submodule "lib/libds1337"]
 	path = lib/libds1337
-	url = git@github.com:amikhalev/libds1337.git
+	url = https://github.com/amikhalev/libds1337.git
