@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <util/delay.h>
 
+#include <ds1337.h>
+
 int main(int argc, char **argv) {
 	segments_init();
 	segments_set_digit(0, 0);
