@@ -1,0 +1,11 @@
+# Build files
+/build/
+*.o
+*.elf
+*.lss
+*.map
+
+# Eclipse files
+/.project
+/.cproject
+/.settings/
