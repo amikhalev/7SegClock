@@ -82,7 +82,7 @@ $(OUTPUT_ELF): $(OBJS) $(LIBS)
 	@echo
 	@echo === Linking "$(OUTPUT_ELF)" ====
 	@echo
-	$(CC) -Wl,-Map,$(NAME).map -o "$(OUTPUT_ELF)" $(OBJS) $(LIBS)
+	$(CC) -mmcu=$(MCU) -Wl,-Map,$(NAME).map -o "$(OUTPUT_ELF)" $(OBJS) $(LIBS)
 	
 $(OUTPUT_HEX): $(OUTPUT_ELF)
 	@echo

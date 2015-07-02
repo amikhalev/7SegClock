@@ -22,7 +22,7 @@ void segments_init() {
 // 5 2
 //  3
 
-uint8_t digit_to_segment[10] = { 0b00111111, // 0
+static uint8_t digit_to_segment[10] = { 0b00111111, // 0
 		0b00000110, // 1
 		0b01011011, // 2
 		0b01001111, // 3
