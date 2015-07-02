@@ -6,6 +6,7 @@
 NAME		:= 7SegClock
 MCU			:= atmega328p
 F_CPU		:= 16000000UL
+PROGRAMMER	:= usbtiny
 
 # Directories and files
 SRC_DIR     := src
@@ -24,6 +25,7 @@ CC          := avr-gcc
 AR          := avr-ar
 OBJDUMP		:= avr-objdump
 OBJCOPY		:= avr-objcopy
+AVRDUDE		:= avrdude
 RM			:= rm -rf
 LIBS		:=
 INCLUDES	:=-I $(SRC_DIR)
@@ -41,7 +43,7 @@ SUBDIRS		+= $(LIB_DIR)/$(DS1337_NAME)
 $(DS1337_LIB):
 	$(MAKE) -C $(LIB_DIR)/$(DS1337_NAME) all
 
-.PHONY: all disassemble clean size
+.PHONY: all disassemble clean size write
 .DEFAULT_GOAL := all
 
 # GCC generated dependencies
@@ -64,6 +66,12 @@ size: $(OUTPUT_ELF)
 	@echo === Printing output size ====
 	@echo
 	avr-size --format=avr --mcu=$(MCU) $(OUTPUT_ELF)
+
+write: $(OUTPUT_HEX)
+	@echo
+	@echo === Writing "$(OUTPUT_HEX)" to the AVR using "$(AVRDUDE)" ===
+	@echo
+	$(AVRDUDE) -p $(MCU) -c $(PROGRAMMER) -U flash:w:$(OUTPUT_HEX)
 
 # File targets
 $(BUILD_DIR):
