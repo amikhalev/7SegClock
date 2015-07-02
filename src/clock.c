@@ -6,22 +6,31 @@
 #include <util/delay.h>
 
 int main(int argc, char **argv) {
-	DDRB = 0;
-	DDRC = 0;
-	DDRD = 0;
 	segments_init();
-//	buttons_init();
+	buttons_init();
+
+	uint8_t counters[4] = { 0, 0, 0, 0 };
+
+#define INCR(i) \
+	if (++counters[i] >= 10) { \
+		counters[i] = 0; \
+	}
 
 	while (1) {
-//		buttons_update();
-//		segments_set_digit(0, button_is_down(0) ? 1 : 0);
-//		segments_set_digit(1, button_is_down(1) ? 1 : 0);
-//		segments_set_digit(2, button_is_down(2) ? 1 : 0);
-//		segments_set_digit(3, button_is_down(3) ? 1 : 0);
-		segments.digits[1] = PINB;
-		segments.digits[2] = PINC;
-		segments.digits[3] = PIND;
+		buttons_update();
+		if (button_is_down(0)) {
+			INCR(0)
+		}
+		if (button_pressed(1)) {
+			INCR(1)
+		}
+		if (button_pressed(2)) {
+			INCR(2)
+		}
+		for (size_t i = 0; i < sizeof(counters) / sizeof(counters[0]); i++) {
+			segments_set_digit(i, counters[i]);
+		}
 		segments_draw();
-//		_delay_ms(1);
+		_delay_ms(1);
 	}
 }
