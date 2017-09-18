@@ -9,3 +9,6 @@
 /.project
 /.cproject
 /.settings/
+
+# Editor files
+.vscode
