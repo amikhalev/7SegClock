@@ -58,7 +58,7 @@
  * Types *
  *********/
 
-struct segments_st {
+struct segments {
 	union {
 		uint8_t raw_parts[SEGMENTS_NUM_PARTS];
 		struct {
@@ -67,19 +67,17 @@ struct segments_st {
 		};
 	};
 };
-typedef struct segments_st segments_t;
 
-struct segments_draw_flags_st {
+struct segments_draw_flags {
 	uint8_t current_part :3;
 };
-typedef struct segments_draw_flags_st segments_draw_flags_t;
 
 /********************
  * Global variables *
  ********************/
 
-segments_t segments;
-segments_draw_flags_t segments_draw_flags;
+struct segments segments;
+struct segments_draw_flags segments_draw_flags;
 
 /********************
  * Public functions *

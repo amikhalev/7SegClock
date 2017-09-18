@@ -62,4 +62,10 @@ bool button_held(uint8_t button) {
 	return button_counters[button] == BUTTONS_HELD_TICKS;
 }
 
+bool button_repeated(uint8_t button) {
+	BUTTON_CHECK(button);
+	uint8_t counter = button_counters[button];
+	return counter && ~(counter & 0x00FFFFFF);
+}
+
 #undef BUTTON_CHECK

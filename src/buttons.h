@@ -99,4 +99,6 @@ bool button_pressed(uint8_t button);
  */
 bool button_held(uint8_t button);
 
+bool button_repeated(uint8_t button);
+
 #endif /* BUTTONS_H_ */
