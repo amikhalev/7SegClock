@@ -26,29 +26,41 @@
 #define BUTTONS_PRESSED_TICKS	100
 #define BUTTONS_HELD_TICKS		1000
 
+/*****************
+ * Helper macros *
+ *****************/
+
+#define __BUTTONS_EMTPY(...)
+#define __BUTTONS_DEFER(...) __VA_ARGS__ EMPTY()
+#define __BUTTONS_OBSTRUCT(...) __VA_ARGS__ DEFER(EMPTY)()
+#define __BUTTONS_EXPAND(...) __VA_ARGS__
+#define __BUTTONS_CAT(a, ...) __BUTTONS_PRIMITIVE_CAT(a, __VA_ARGS__)
+#define __BUTTONS_PRIMITIVE_CAT(a, ...) a ## __VA_ARGS__
+
+#define BUTTON_DDR(button_name)  __BUTTONS_CAT(DDR, __BUTTONS_EXPAND(button_name##_REG))
+#define BUTTON_PORT(button_name) __BUTTONS_CAT(PORT, __BUTTONS_EXPAND(button_name##_REG))
+#define BUTTON_PIN(button_name)  __BUTTONS_CAT(PIN, __BUTTONS_EXPAND(button_name##_REG))
+#define BUTTON_BIT(button_name)  _BV(__BUTTONS_EXPAND(button_name##_NUM))
+
+#define BUTTON_READ(button_name) (BUTTON_PIN(button_name) & BUTTON_BIT(button_name))
+#define BUTTON_SET(button_name, type) __BUTTONS_EXPAND(BUTTON_ ## type(button_name)) |= BUTTON_BIT(button_name)
+#define BUTTON_RESET(button_name, type) __BUTTONS_EXPAND(BUTTON_ ## type(button_name)) &= ~BUTTON_BIT(button_name)
+
 /**********************
  * Pin/port constants *
  **********************/
 
-#define BUTTON0_DDR				DDRB
-#define BUTTON0_PORT			PORTB
-#define BUTTON0_PIN				PINB
-#define BUTTON0_BIT				_BV(PINB2)
+#define BUTTON0_REG				B
+#define BUTTON0_NUM				2
 
-#define BUTTON1_DDR				DDRB
-#define BUTTON1_PORT			PORTB
-#define BUTTON1_PIN				PINB
-#define BUTTON1_BIT				_BV(PINB3)
+#define BUTTON1_REG				B
+#define BUTTON1_NUM				3
 
-#define BUTTON2_DDR				DDRB
-#define BUTTON2_PORT			PORTB
-#define BUTTON2_PIN				PINB
-#define BUTTON2_BIT				_BV(PINB1)
+#define BUTTON2_REG				B
+#define BUTTON2_NUM				1
 
-#define BUTTON3_DDR				DDRB
-#define BUTTON3_PORT			PORTB
-#define BUTTON3_PIN				PINB
-#define BUTTON3_BIT				_BV(PINB4)
+#define BUTTON3_REG				B
+#define BUTTON3_NUM				4
 
 /*********
  * Types *
